@@ -1,0 +1,16 @@
+# Factory Ideas — https://www.factoryideas.ao
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://www.factoryideas.ao/sitemap.xml
+
+# Bots de pesquisa populares
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2

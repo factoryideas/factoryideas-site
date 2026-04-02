@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personalize o Seu Produto | Factory Ideas</title>
+  <meta name="description" content="Crie mockups personalizados em tempo real. Carregue o seu logótipo ou texto e visualize-o aplicado em canecas, t-shirts, bonés, copos e muito mais." />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 191.89 185.86'%3E%3Crect width='191.89' height='185.86' fill='%230A0A0A'/%3E%3Cpath fill='%23F5C800' d='M33.05,28.94v56.56h85.92v29.21H33.05v.02H0V0h129.9v28.94H33.05Z'/%3E%3Cpath fill='%23F5C800' d='M158.84,0h33.05v114.72h-33.05V0Z'/%3E%3Crect fill='%23F5C800' y='152.81' width='33.05' height='33.05'/%3E%3Crect fill='%23F5C800' x='158.84' y='152.81' width='33.05' height='33.05'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mockup.css" />
+</head>
+<body class="mockup-page">
+
+  <!-- NAV -->
+  <nav id="navbar" class="scrolled">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-branco.png" alt="Factory Ideas" class="logo-img" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#servicos" data-i18n="nav.servicos">Servicos</a></li>
+        <li><a href="index.html#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="index.html#clientes" data-i18n="nav.clientes">Clientes</a></li>
+        <li><a href="index.html#sobre" data-i18n="nav.sobre">Sobre</a></li>
+        <li><a href="index.html#contacto" class="btn-nav" data-i18n="nav.orcamento">Pedir Orcamento</a></li>
+      </ul>
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn active" data-lang="pt" onclick="setMockupLang('pt')">PT</button>
+        <button class="lang-btn" data-lang="fr" onclick="setMockupLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="en" onclick="setMockupLang('en')">EN</button>
+        <button class="lang-btn" data-lang="zh" onclick="setMockupLang('zh')">中</button>
+        <button class="lang-btn" data-lang="ar" onclick="setMockupLang('ar')">ع</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <section class="mockup-hero">
+    <div class="container">
+      <span class="badge" data-i18n="mk.badge">Personalizacao em Tempo Real</span>
+      <h1 data-i18n-html="mk.h1">Visualize a sua marca<br /><em>nos nossos produtos</em></h1>
+      <p data-i18n="mk.subtitle">Carregue o seu logotipo ou escreva o seu texto e veja o resultado aplicado instantaneamente.</p>
+    </div>
+  </section>
+
+  <!-- MAIN MOCKUP APP -->
+  <section class="mockup-app">
+    <div class="container mockup-container">
+
+      <!-- LEFT PANEL: Controls -->
+      <aside class="mockup-controls" id="mockupControls">
+
+        <!-- Step 1: Design Input -->
+        <div class="control-section">
+          <div class="control-header">
+            <span class="control-step">1</span>
+            <h3 data-i18n="mk.step1">O Seu Design</h3>
+          </div>
+
+          <!-- Design Mode Toggle -->
+          <div class="design-mode-toggle">
+            <button class="mode-btn active" data-mode="logo" id="modeLogo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+              <span data-i18n="mk.logo">Logotipo</span>
+            </button>
+            <button class="mode-btn" data-mode="text" id="modeText">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+              <span data-i18n="mk.text">Texto</span>
+            </button>
+            <button class="mode-btn" data-mode="both" id="modeBoth">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M14 7h7"/><path d="M14 17h7"/><path d="M3 17h7"/></svg>
+              <span data-i18n="mk.both">Ambos</span>
+            </button>
+          </div>
+
+          <!-- Upload Area -->
+          <div class="upload-zone" id="uploadZone">
+            <div class="upload-content" id="uploadContent">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p data-i18n="mk.upload.title">Arraste o ficheiro ou clique para carregar</p>
+              <span data-i18n="mk.upload.formats">PNG, JPG, SVG (max 5MB)</span>
+            </div>
+            <div class="upload-preview" id="uploadPreview" style="display:none">
+              <img id="uploadedImg" alt="Logo carregado" />
+              <button class="upload-remove" id="removeUpload" title="Remover">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.svg,.webp" hidden />
+          </div>
+
+          <!-- Text Input -->
+          <div class="text-input-group" id="textInputGroup" style="display:none">
+            <input type="text" id="customText" class="text-field" placeholder="Digite o seu texto..." data-i18n-ph="mk.text.ph" maxlength="40" />
+            <div class="text-options">
+              <div class="option-row">
+                <label data-i18n="mk.font">Fonte</label>
+                <select id="fontSelect">
+                  <option value="Inter">Inter</option>
+                  <option value="Arial Black">Arial Black</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Impact">Impact</option>
+                </select>
+              </div>
+              <div class="option-row">
+                <label data-i18n="mk.color">Cor</label>
+                <div class="color-picker-wrap">
+                  <input type="color" id="textColor" value="#FFFFFF" />
+                  <span id="textColorHex">#FFFFFF</span>
+                </div>
+              </div>
+              <div class="option-row">
+                <label data-i18n="mk.size">Tamanho</label>
+                <input type="range" id="textSize" min="12" max="72" value="32" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Product Selection -->
+        <div class="control-section">
+          <div class="control-header">
+            <span class="control-step">2</span>
+            <h3 data-i18n="mk.step2">Escolha o Produto</h3>
+          </div>
+          <div class="product-grid" id="productGrid">
+            <button class="product-card active" data-product="tshirt">
+              <div class="product-icon">
+                <svg viewBox="0 0 80 80" width="44" height="44"><path d="M20 18l-12 10 8 8 6-4v30h36V32l6 4 8-8-12-10-8 4h-24l-8-4z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+              </div>
+              <span>T-shirt</span>
+            </button>
+            <button class="product-card" data-product="mug">
+              <div class="product-icon">
+                <svg viewBox="0 0 80 80" width="44" height="44"><rect x="16" y="20" width="34" height="42" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M50 30h8a8 8 0 010 16h-8" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+              </div>
+              <span data-i18n="mk.prod.mug">Caneca</span>
+            </button>
+            <button class="product-card" data-product="cap">
+              <div class="product-icon">
+                <svg viewBox="0 0 80 80" width="44" height="44"><ellipse cx="40" cy="48" rx="28" ry="8" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 48c0-20 12-30 28-30s28 10 28 30" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 48l-4 4h12" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+              </div>
+              <span data-i18n="mk.prod.cap">Bone</span>
+            </button>
+            <button class="product-card" data-product="stanley">
+              <div class="product-icon">
+                <svg viewBox="0 0 80 80" width="44" height="44"><path d="M24 12h32l-4 56H28L24 12z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M22 12h36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M56 24h6a4 4 0 014 4v8a4 4 0 01-4 4h-5" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+              </div>
+              <span>Stanley</span>
+            </button>
+            <button class="product-card" data-product="totebag">
+              <div class="product-icon">
+                <svg viewBox="0 0 80 80" width="44" height="44"><rect x="14" y="28" width="52" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M28 28V18a12 12 0 0124 0v10" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+              </div>
+              <span>Tote Bag</span>
+            </button>
+            <button class="product-card" data-product="hoodie">
+              <div class="product-icon">
+                <svg viewBox="0 0 80 80" width="44" height="44"><path d="M22 22l-14 14 8 6 6-4v28h36V38l6 4 8-6-14-14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M32 22a8 8 0 0116 0" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M34 38v16h12V38" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/></svg>
+              </div>
+              <span>Hoodie</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Adjustments -->
+        <div class="control-section">
+          <div class="control-header">
+            <span class="control-step">3</span>
+            <h3 data-i18n="mk.step3">Ajustes</h3>
+          </div>
+          <div class="adjustment-controls">
+            <div class="option-row">
+              <label data-i18n="mk.opacity">Opacidade</label>
+              <input type="range" id="opacitySlider" min="10" max="100" value="100" />
+            </div>
+            <div class="option-row">
+              <label data-i18n="mk.scale">Escala</label>
+              <input type="range" id="scaleSlider" min="20" max="200" value="100" />
+            </div>
+            <div class="option-row">
+              <label data-i18n="mk.rotation">Rotacao</label>
+              <input type="range" id="rotationSlider" min="-180" max="180" value="0" />
+            </div>
+            <button class="btn-reset" id="resetBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+              <span data-i18n="mk.reset">Repor</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Color -->
+        <div class="control-section">
+          <div class="control-header">
+            <span class="control-step">4</span>
+            <h3 data-i18n="mk.step4">Cor do Produto</h3>
+          </div>
+          <div class="product-colors" id="productColors">
+            <button class="color-swatch active" data-color="#FFFFFF" style="background:#FFFFFF" title="Branco"></button>
+            <button class="color-swatch" data-color="#0A0A0A" style="background:#0A0A0A" title="Preto"></button>
+            <button class="color-swatch" data-color="#1a3a5c" style="background:#1a3a5c" title="Azul Marinho"></button>
+            <button class="color-swatch" data-color="#8B0000" style="background:#8B0000" title="Bordeaux"></button>
+            <button class="color-swatch" data-color="#2d5a27" style="background:#2d5a27" title="Verde"></button>
+            <button class="color-swatch" data-color="#4a4a4a" style="background:#4a4a4a" title="Cinza"></button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT PANEL: Preview -->
+      <main class="mockup-preview" id="mockupPreview">
+        <div class="preview-toolbar">
+          <div class="preview-product-name">
+            <span id="currentProductName">T-shirt</span>
+          </div>
+          <div class="preview-actions">
+            <button class="toolbar-btn" id="zoomInBtn" title="Zoom In">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </button>
+            <button class="toolbar-btn" id="zoomOutBtn" title="Zoom Out">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </button>
+            <button class="toolbar-btn" id="resetViewBtn" title="Reset View">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="canvas-wrapper" id="canvasWrapper">
+          <canvas id="threeCanvas"></canvas>
+          <div class="rotate-hint" id="rotateHint" data-i18n="mk.rotate.hint">Arraste para rodar o produto</div>
+        </div>
+        <!-- Hidden Fabric canvas for design composition -->
+        <canvas id="designCanvas" width="512" height="512"></canvas>
+        <div class="preview-cta">
+          <button class="btn btn-outline-dark" id="downloadBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="mk.download">Descarregar Mockup</span>
+          </button>
+          <button class="btn btn-primary" id="quoteBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            <span data-i18n="mk.quote">Solicitar Orcamento</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- QUOTE MODAL -->
+  <div class="modal-overlay" id="quoteModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h2 data-i18n="mk.modal.title">Solicitar Orcamento</h2>
+      <p data-i18n="mk.modal.subtitle">Enviaremos o seu mockup junto com os dados de contacto via WhatsApp.</p>
+      <form id="quoteForm">
+        <div class="modal-form-row">
+          <div class="form-group">
+            <label data-i18n="mk.modal.name">Nome *</label>
+            <input type="text" id="quoteName" required placeholder="O seu nome" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="mk.modal.company">Empresa *</label>
+            <input type="text" id="quoteCompany" required placeholder="Nome da empresa" />
+          </div>
+        </div>
+        <div class="modal-form-row">
+          <div class="form-group">
+            <label data-i18n="mk.modal.phone">Telefone *</label>
+            <input type="tel" id="quotePhone" required placeholder="+244 9XX XXX XXX" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="mk.modal.qty">Quantidade</label>
+            <input type="number" id="quoteQty" min="1" placeholder="Ex: 100" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="mk.modal.notes">Observacoes</label>
+          <textarea id="quoteNotes" rows="3" placeholder="Detalhes adicionais..."></textarea>
+        </div>
+        <div class="modal-preview-summary" id="modalSummary">
+          <div class="summary-thumb" id="summaryThumb"></div>
+          <div class="summary-info">
+            <strong id="summaryProduct">T-shirt</strong>
+            <span id="summaryColor" data-i18n="mk.modal.color">Branco</span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          <span data-i18n="mk.modal.send">Enviar via WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><img src="images/logo-branco.png" alt="Factory Ideas" class="logo-img" /></a>
+          <p data-i18n="foot.p">Onde a criatividade encontra a excelencia em comunicacao visual. Luanda, Angola.</p>
+          <p class="footer-slogan" data-i18n="foot.slogan">"Questione, Inove, Experimente"</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="foot.serv">Servicos</h4>
+          <ul>
+            <li><a href="index.html#servicos" data-i18n="s1.h3">Stands para Feiras</a></li>
+            <li><a href="index.html#servicos" data-i18n="s2.h3">Impressao Grande Formato</a></li>
+            <li><a href="index.html#servicos" data-i18n="s3.h3">Brindes Corporativos</a></li>
+            <li><a href="index.html#servicos" data-i18n="s4.h3">Texteis Personalizados</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="foot.emp">Empresa</h4>
+          <ul>
+            <li><a href="index.html#sobre" data-i18n="foot.sobre">Sobre nos</a></li>
+            <li><a href="index.html#processo" data-i18n="foot.processo">Como trabalhamos</a></li>
+            <li><a href="index.html#contacto" data-i18n="foot.contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p id="footerCopy">&copy; <span id="year"></span> Factory Ideas. Todos os direitos reservados. | Alvalade, Luanda, Angola</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/244922698044" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.347 0-4.527-.809-6.248-2.162l-.436-.348-3.2 1.073 1.073-3.2-.348-.436A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+  </a>
+
+  <!-- Three.js for 3D rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Fabric.js for design composition -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  <script src="mockup.js"></script>
+</body>
+</html>
