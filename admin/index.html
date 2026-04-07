@@ -892,7 +892,7 @@ let currentUser = null;
 
 function enterApp(user) {
   currentUser = user;
-  sessionStorage.setItem('fi_admin_user', JSON.stringify({ email: user.email, name: user.name }));
+  localStorage.setItem('fi_admin_user', JSON.stringify({ email: user.email, name: user.name }));
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   document.getElementById('current-user-name').textContent = user.name;
@@ -916,7 +916,7 @@ document.getElementById('login-user').addEventListener('keydown', e => { if (e.k
 // Auto-login from session
 (function() {
   try {
-    const saved = JSON.parse(sessionStorage.getItem('fi_admin_user'));
+    const saved = JSON.parse(localStorage.getItem('fi_admin_user'));
     if (saved) {
       const match = USERS.find(x => x.email.toLowerCase() === saved.email.toLowerCase());
       if (match) enterApp(match);
@@ -925,7 +925,7 @@ document.getElementById('login-user').addEventListener('keydown', e => { if (e.k
 })();
 
 function doLogout() {
-  sessionStorage.removeItem('fi_admin_user');
+  localStorage.removeItem('fi_admin_user');
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-pass').value = '';
