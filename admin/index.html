@@ -1645,7 +1645,7 @@ function deleteContacto(id) {
 // ===== ANALYTICS =====
 function loadAnalytics() {
   const baseUrl = window.location.origin || 'https://www.factoryideas.ao';
-  fetch(baseUrl + '/api/analytics.php?token=FI2026stats')
+  fetch(baseUrl + '/api/analytics.php?token=FI2026stats&_t=' + Date.now())
     .then(r => r.json())
     .then(data => {
       const s = data.summary;
