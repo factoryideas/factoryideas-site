@@ -38,8 +38,9 @@ RewriteRule ^(.*)$ https://www.factoryideas.ao/$1 [L,R=301]
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType application/json "access plus 1 month"
+  ExpiresByType application/json "access plus 0 seconds"
 </IfModule>
+
 
 # ══ CUSTOM ERROR PAGES ═══════════════════════════════════════
 ErrorDocument 404 /index.html
