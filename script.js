@@ -516,6 +516,40 @@ form.addEventListener('submit', (e) => {
   setTimeout(() => formSuccess.style.display = 'none', 6000);
 });
 
+// ===== SYNC ADMIN DATA TO SITE =====
+(function syncAdminData() {
+  // Feiras — render from localStorage if admin has modified them
+  try {
+    const feirasData = JSON.parse(localStorage.getItem('fi_feiras'));
+    if (feirasData) {
+      const feirasList = document.querySelector('.feiras-list');
+      if (feirasList) {
+        const visibleFeiras = feirasData.filter(f => f.visible !== false);
+        feirasList.innerHTML = visibleFeiras.map(f => `<div class="feira">${f.name}</div>`).join('');
+      }
+    }
+  } catch(e) {}
+
+  // Clientes — render from localStorage if admin has modified them
+  try {
+    const clientesData = JSON.parse(localStorage.getItem('fi_clientes'));
+    if (clientesData) {
+      const clientesGrid = document.querySelector('.clientes-grid');
+      if (clientesGrid) {
+        const visibleClientes = clientesData.filter(c => c.visible !== false);
+        clientesGrid.innerHTML = visibleClientes.map(c => {
+          if (c.logo) {
+            return `<div class="client-card"><img src="${c.logo}" alt="${c.name}" /></div>`;
+          }
+          const initials = c.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+          const color = c.color || '#F5C800';
+          return `<div class="client-card"><div style="width:50px;height:50px;border-radius:8px;background:${color};display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:0.9rem;">${initials}</div></div>`;
+        }).join('');
+      }
+    }
+  } catch(e) {}
+})();
+
 // ===== COPYRIGHT YEAR =====
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
