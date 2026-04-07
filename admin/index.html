@@ -890,17 +890,22 @@ const USERS = [
 
 let currentUser = null;
 
+function enterApp(user) {
+  currentUser = user;
+  sessionStorage.setItem('fi_admin_user', JSON.stringify({ email: user.email, name: user.name }));
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('current-user-name').textContent = user.name;
+  document.getElementById('login-error').style.display = 'none';
+  init();
+}
+
 function doLogin() {
   const u = document.getElementById('login-user').value.trim().toLowerCase();
   const p = document.getElementById('login-pass').value;
   const match = USERS.find(x => x.email.toLowerCase() === u && x.pass === p);
   if (match) {
-    currentUser = match;
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('current-user-name').textContent = match.name;
-    document.getElementById('login-error').style.display = 'none';
-    init();
+    enterApp(match);
   } else {
     document.getElementById('login-error').style.display = 'block';
   }
@@ -908,7 +913,19 @@ function doLogin() {
 document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pass').focus(); });
 
+// Auto-login from session
+(function() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('fi_admin_user'));
+    if (saved) {
+      const match = USERS.find(x => x.email.toLowerCase() === saved.email.toLowerCase());
+      if (match) enterApp(match);
+    }
+  } catch(e) {}
+})();
+
 function doLogout() {
+  sessionStorage.removeItem('fi_admin_user');
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-pass').value = '';
