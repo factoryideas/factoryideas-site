@@ -146,7 +146,7 @@
     .page-header p { font-size: 0.85rem; color: var(--gray); margin-top: 2px; }
 
     /* CARDS / STATS */
-    .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 28px; }
+    .stats-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 28px; }
     .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; }
     .stat-card .stat-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray); margin-bottom: 8px; }
     .stat-card .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--dark); line-height: 1; }
@@ -276,6 +276,22 @@
     .picker-thumb img { width:100%; height:100%; object-fit:contain; padding:6px; }
     .picker-name { font-size:0.68rem; font-weight:600; padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center; color:var(--dark); }
     .picker-empty { text-align:center; padding:32px 16px; color:var(--gray); font-size:0.82rem; }
+
+    /* NAV BADGE */
+    .nav-badge { background:var(--yellow); color:var(--black); font-size:0.65rem; font-weight:800; min-width:18px; height:18px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center; padding:0 5px; margin-left:auto; }
+    .badge-nova { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:600; background:#fef3c7; color:#92400e; }
+    .badge-lida { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:600; background:#d1fae5; color:#065f46; }
+    .msg-truncate { max-width:220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; }
+    tr.clickable-row { cursor:pointer; }
+    tr.clickable-row:hover td { background:rgba(245,200,0,0.06) !important; }
+    .msg-detail-field { margin-bottom:16px; }
+    .msg-detail-field label { display:block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); margin-bottom:4px; }
+    .msg-detail-field p { font-size:0.9rem; color:var(--dark); line-height:1.5; }
+    .msg-detail-field a { color:var(--blue); text-decoration:none; }
+    .msg-detail-field a:hover { text-decoration:underline; }
+    .msg-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .contacto-search { width:100%; max-width:320px; border:1px solid var(--border); border-radius:7px; padding:9px 14px; font-family:'Inter',sans-serif; font-size:0.85rem; outline:none; transition:border-color 0.15s; }
+    .contacto-search:focus { border-color:var(--yellow); box-shadow:0 0 0 3px rgba(245,200,0,0.1); }
   </style>
 </head>
 <body>
@@ -310,6 +326,13 @@
       <div class="nav-section-label">Principal</div>
       <button class="nav-item active" onclick="showPage('dashboard', this)">
         <span class="nav-icon">▦</span> Dashboard
+      </button>
+      <button class="nav-item" onclick="showPage('mensagens', this)">
+        <span class="nav-icon">✉</span> Mensagens
+        <span class="nav-badge" id="nav-badge-mensagens" style="display:none;">0</span>
+      </button>
+      <button class="nav-item" onclick="showPage('contactos', this)">
+        <span class="nav-icon">☷</span> Base de Dados
       </button>
       <div class="nav-section-label">Conteúdo</div>
       <button class="nav-item" onclick="showPage('portfolio', this)">
@@ -383,6 +406,11 @@
           <div class="stat-label">Ficheiros</div>
           <div class="stat-value" id="stat-media">—</div>
           <div class="stat-sub">na biblioteca de média</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Mensagens</div>
+          <div class="stat-value" id="stat-mensagens">—</div>
+          <div class="stat-sub" id="stat-mensagens-sub">mensagens recebidas</div>
         </div>
       </div>
       <div class="panel">
@@ -593,7 +621,93 @@
       <div class="media-empty" id="media-empty" style="display:none">Nenhum ficheiro na biblioteca. Carregue o primeiro ficheiro acima.</div>
     </div>
 
+    <!-- MENSAGENS -->
+    <div id="page-mensagens" class="page">
+      <div class="page-header">
+        <div><h1>Mensagens</h1><p>Pedidos de orçamento recebidos através do formulário de contacto</p></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h2>Mensagens Recebidas</h2><span style="font-size:0.78rem;color:var(--gray)" id="mensagens-count"></span></div>
+        <div class="panel-body" style="padding:0;">
+          <table>
+            <thead><tr><th>Data</th><th>Nome</th><th>Empresa</th><th>Serviço</th><th>Mensagem</th><th>Estado</th><th>Ações</th></tr></thead>
+            <tbody id="mensagens-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTOS / BASE DE DADOS -->
+    <div id="page-contactos" class="page">
+      <div class="page-header">
+        <div><h1>Base de Dados de Contactos</h1><p>Contactos recolhidos automaticamente a partir dos formulários do site</p></div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <input type="text" class="contacto-search" id="contactos-search" placeholder="Pesquisar por nome, empresa, email..." oninput="renderContactos()" />
+          <button class="btn btn-danger btn-sm" onclick="exportContactosCSV()">Exportar CSV</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h2>Contactos</h2><span style="font-size:0.78rem;color:var(--gray)" id="contactos-count"></span></div>
+        <div class="panel-body" style="padding:0;">
+          <table>
+            <thead><tr><th>Nome</th><th>Empresa</th><th>Telefone</th><th>Email</th><th>Serviço</th><th>Mensagens</th><th>Primeiro Contacto</th><th>Ações</th></tr></thead>
+            <tbody id="contactos-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </main>
+</div>
+
+<!-- MESSAGE DETAIL MODAL -->
+<div class="modal-overlay" id="modal-mensagem-detail">
+  <div class="modal" style="max-width:560px;">
+    <div class="modal-header">
+      <h3 id="msg-detail-title">Mensagem</h3>
+      <button class="modal-close" onclick="closeModal('modal-mensagem-detail')">✕</button>
+    </div>
+    <div class="msg-detail-grid">
+      <div class="msg-detail-field">
+        <label>Nome</label>
+        <p id="msg-detail-nome">—</p>
+      </div>
+      <div class="msg-detail-field">
+        <label>Empresa</label>
+        <p id="msg-detail-empresa">—</p>
+      </div>
+    </div>
+    <div class="msg-detail-grid">
+      <div class="msg-detail-field">
+        <label>Telefone</label>
+        <p id="msg-detail-telefone">—</p>
+      </div>
+      <div class="msg-detail-field">
+        <label>Email</label>
+        <p id="msg-detail-email">—</p>
+      </div>
+    </div>
+    <div class="msg-detail-grid">
+      <div class="msg-detail-field">
+        <label>Serviço</label>
+        <p id="msg-detail-servico">—</p>
+      </div>
+      <div class="msg-detail-field">
+        <label>Data</label>
+        <p id="msg-detail-data">—</p>
+      </div>
+    </div>
+    <div class="msg-detail-field">
+      <label>Mensagem</label>
+      <p id="msg-detail-mensagem" style="background:var(--bg);padding:14px 16px;border-radius:8px;white-space:pre-wrap;">—</p>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-primary btn-sm" id="msg-detail-mark-btn" onclick="">✓ Marcar como lida</button>
+      <button class="btn btn-ghost btn-sm" id="msg-detail-whatsapp-btn" onclick="">WhatsApp</button>
+      <button class="btn btn-ghost btn-sm" id="msg-detail-email-btn" onclick="">Email</button>
+      <button class="btn btn-danger btn-sm" id="msg-detail-delete-btn" onclick="" style="margin-left:auto;">Apagar</button>
+    </div>
+  </div>
 </div>
 
 <!-- MODALS -->
@@ -793,6 +907,7 @@ const DEFAULTS = {
     horario: 'Segunda a Sexta: 08h00 – 17h00',
     instagram: 'https://www.instagram.com/factoryideas.ao',
   },
+  mensagens: [],
   hero: {
     title1: 'Onde a criatividade encontra',
     title2: 'a excelência visual',
@@ -843,12 +958,25 @@ function updateStats() {
   const c = getData('clientes').filter(i => i.visible).length;
   const f = getData('feiras').filter(i => i.visible).length;
   const m = getMedia().length;
+  const msgs = getData('mensagens');
+  const totalMsgs = msgs.length;
+  const unreadMsgs = msgs.filter(x => !x.lida).length;
   document.getElementById('stat-portfolio').textContent = p;
   document.getElementById('stat-servicos').textContent = s;
   document.getElementById('stat-clientes').textContent = c;
   document.getElementById('stat-feiras').textContent = f;
   const sm = document.getElementById('stat-media');
   if (sm) sm.textContent = m;
+  const smsg = document.getElementById('stat-mensagens');
+  if (smsg) smsg.textContent = totalMsgs;
+  const smsgSub = document.getElementById('stat-mensagens-sub');
+  if (smsgSub) smsgSub.textContent = unreadMsgs > 0 ? unreadMsgs + ' por ler' : 'mensagens recebidas';
+  // Nav badge
+  const badge = document.getElementById('nav-badge-mensagens');
+  if (badge) {
+    if (unreadMsgs > 0) { badge.textContent = unreadMsgs; badge.style.display = 'inline-flex'; }
+    else { badge.style.display = 'none'; }
+  }
 }
 
 function renderPage(name) {
@@ -859,6 +987,8 @@ function renderPage(name) {
   if (name === 'contacto') renderContacto();
   if (name === 'hero') renderHero();
   if (name === 'media') renderMedia();
+  if (name === 'mensagens') renderMensagens();
+  if (name === 'contactos') renderContactos();
   updateStats();
 }
 
@@ -1269,6 +1399,185 @@ function clearClienteLogo() {
   updateClienteLogo(_pickerClienteId, '');
   closeModal('modal-logo-picker');
   toast('Logótipo removido', 'success');
+}
+
+// ===== MENSAGENS =====
+function renderMensagens() {
+  const items = getData('mensagens');
+  document.getElementById('mensagens-count').textContent = items.length + ' mensagen' + (items.length !== 1 ? 's' : '');
+  const tbody = document.getElementById('mensagens-table-body');
+  if (!items.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><p>Nenhuma mensagem recebida.</p></div></td></tr>';
+    return;
+  }
+  // Show newest first
+  const sorted = [...items].sort((a, b) => new Date(b.data) - new Date(a.data));
+  tbody.innerHTML = sorted.map(msg => {
+    const d = new Date(msg.data);
+    const dataStr = d.toLocaleDateString('pt-PT', { day:'2-digit', month:'2-digit', year:'numeric' }) + ' ' + d.toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
+    const truncMsg = msg.mensagem && msg.mensagem.length > 50 ? msg.mensagem.substring(0, 50) + '...' : (msg.mensagem || '');
+    return `<tr class="clickable-row" onclick="openMensagem(${msg.id})" style="${!msg.lida ? 'background:rgba(245,200,0,0.04);' : ''}">
+      <td style="font-size:0.8rem;white-space:nowrap;">${dataStr}</td>
+      <td style="font-weight:${msg.lida ? '400' : '700'};">${msg.nome || '—'}</td>
+      <td>${msg.empresa || '—'}</td>
+      <td>${msg.servico || '—'}</td>
+      <td><span class="msg-truncate" title="${(msg.mensagem || '').replace(/"/g, '&quot;')}">${truncMsg}</span></td>
+      <td>${msg.lida ? '<span class="badge-lida">Lida</span>' : '<span class="badge-nova">Nova</span>'}</td>
+      <td style="white-space:nowrap;" onclick="event.stopPropagation();">
+        ${!msg.lida ? `<button class="btn btn-ghost btn-sm" onclick="markAsRead(${msg.id})" title="Marcar como lida">✓</button>` : ''}
+        <button class="btn btn-danger btn-sm" onclick="deleteMensagem(${msg.id})" title="Apagar">✕</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function markAsRead(id) {
+  const items = getData('mensagens');
+  const msg = items.find(x => x.id === id);
+  if (msg) { msg.lida = true; setData('mensagens', items); renderMensagens(); updateStats(); toast('Mensagem marcada como lida', 'success'); }
+}
+
+function deleteMensagem(id) {
+  if (!confirm('Apagar esta mensagem?')) return;
+  setData('mensagens', getData('mensagens').filter(x => x.id !== id));
+  renderMensagens(); updateStats(); toast('Mensagem apagada', 'success');
+}
+
+function openMensagem(id) {
+  const items = getData('mensagens');
+  const msg = items.find(x => x.id === id);
+  if (!msg) return;
+  const d = new Date(msg.data);
+  const dataStr = d.toLocaleDateString('pt-PT', { day:'2-digit', month:'2-digit', year:'numeric' }) + ' ' + d.toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
+  document.getElementById('msg-detail-title').textContent = msg.nome ? 'Mensagem de ' + msg.nome : 'Mensagem';
+  document.getElementById('msg-detail-nome').textContent = msg.nome || '—';
+  document.getElementById('msg-detail-empresa').textContent = msg.empresa || '—';
+  document.getElementById('msg-detail-telefone').innerHTML = msg.telefone ? '<a href="tel:' + msg.telefone + '">' + msg.telefone + '</a>' : '—';
+  document.getElementById('msg-detail-email').innerHTML = msg.email ? '<a href="mailto:' + msg.email + '">' + msg.email + '</a>' : '—';
+  document.getElementById('msg-detail-servico').textContent = msg.servico || '—';
+  document.getElementById('msg-detail-data').textContent = dataStr;
+  document.getElementById('msg-detail-mensagem').textContent = msg.mensagem || '(sem mensagem)';
+  // Action buttons
+  const markBtn = document.getElementById('msg-detail-mark-btn');
+  if (msg.lida) { markBtn.style.display = 'none'; }
+  else { markBtn.style.display = ''; markBtn.onclick = function() { markAsRead(id); closeModal('modal-mensagem-detail'); }; }
+  document.getElementById('msg-detail-delete-btn').onclick = function() { deleteMensagem(id); closeModal('modal-mensagem-detail'); };
+  // WhatsApp & Email quick links
+  const waBtn = document.getElementById('msg-detail-whatsapp-btn');
+  if (msg.telefone) { waBtn.style.display = ''; waBtn.onclick = function() { window.open('https://wa.me/' + msg.telefone.replace(/[^0-9]/g, ''), '_blank'); }; }
+  else { waBtn.style.display = 'none'; }
+  const emBtn = document.getElementById('msg-detail-email-btn');
+  if (msg.email) { emBtn.style.display = ''; emBtn.onclick = function() { window.open('mailto:' + msg.email, '_blank'); }; }
+  else { emBtn.style.display = 'none'; }
+  // Mark as read automatically when opened
+  if (!msg.lida) { msg.lida = true; setData('mensagens', items); renderMensagens(); updateStats(); }
+  openModal('modal-mensagem-detail');
+}
+
+// ===== CONTACTOS / BASE DE DADOS =====
+function getContactos() {
+  try { return JSON.parse(localStorage.getItem('fi_contactos')) || []; } catch(e) { return []; }
+}
+function setContactos(data) {
+  localStorage.setItem('fi_contactos', JSON.stringify(data));
+}
+
+function saveContacto(info) {
+  const contactos = getContactos();
+  const emailKey = (info.email || '').trim().toLowerCase();
+  const telKey = (info.telefone || '').trim().replace(/[^0-9]/g, '');
+  // Deduplicate by email or phone
+  let existing = null;
+  if (emailKey) existing = contactos.find(c => (c.email || '').trim().toLowerCase() === emailKey);
+  if (!existing && telKey) existing = contactos.find(c => (c.telefone || '').trim().replace(/[^0-9]/g, '') === telKey);
+  if (existing) {
+    // Update with latest info
+    if (info.nome) existing.nome = info.nome;
+    if (info.empresa) existing.empresa = info.empresa;
+    if (info.telefone) existing.telefone = info.telefone;
+    if (info.email) existing.email = info.email;
+    existing.totalMensagens = (existing.totalMensagens || 1) + 1;
+    existing.ultimoContacto = new Date().toISOString();
+    if (info.servico && existing.servicos && !existing.servicos.includes(info.servico)) existing.servicos.push(info.servico);
+  } else {
+    contactos.push({
+      id: Date.now(),
+      nome: info.nome || '',
+      empresa: info.empresa || '',
+      telefone: info.telefone || '',
+      email: info.email || '',
+      servicos: info.servico ? [info.servico] : [],
+      totalMensagens: 1,
+      primeiroContacto: new Date().toISOString(),
+      ultimoContacto: new Date().toISOString()
+    });
+  }
+  setContactos(contactos);
+}
+
+function renderContactos() {
+  const contactos = getContactos();
+  const searchEl = document.getElementById('contactos-search');
+  const query = searchEl ? searchEl.value.toLowerCase().trim() : '';
+  const filtered = query ? contactos.filter(c =>
+    (c.nome || '').toLowerCase().includes(query) ||
+    (c.empresa || '').toLowerCase().includes(query) ||
+    (c.email || '').toLowerCase().includes(query) ||
+    (c.telefone || '').includes(query)
+  ) : contactos;
+  document.getElementById('contactos-count').textContent = filtered.length + ' contacto' + (filtered.length !== 1 ? 's' : '') + (query ? ' (filtrados de ' + contactos.length + ')' : '');
+  const tbody = document.getElementById('contactos-table-body');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>' + (query ? 'Nenhum contacto encontrado.' : 'Nenhum contacto registado. Os contactos são criados automaticamente quando alguém envia uma mensagem pelo site.') + '</p></div></td></tr>';
+    return;
+  }
+  const sorted = [...filtered].sort((a, b) => new Date(b.ultimoContacto || b.primeiroContacto) - new Date(a.ultimoContacto || a.primeiroContacto));
+  tbody.innerHTML = sorted.map(c => {
+    const d = new Date(c.primeiroContacto);
+    const dataStr = d.toLocaleDateString('pt-PT', { day:'2-digit', month:'2-digit', year:'numeric' });
+    return `<tr>
+      <td style="font-weight:600;">${c.nome || '—'}</td>
+      <td>${c.empresa || '—'}</td>
+      <td>${c.telefone ? '<a href="tel:' + c.telefone + '" style="color:var(--blue);text-decoration:none;">' + c.telefone + '</a>' : '—'}</td>
+      <td>${c.email ? '<a href="mailto:' + c.email + '" style="color:var(--blue);text-decoration:none;">' + c.email + '</a>' : '—'}</td>
+      <td>${(c.servicos || []).join(', ') || '—'}</td>
+      <td style="text-align:center;"><span class="badge-cat cat-stands">${c.totalMensagens || 1}</span></td>
+      <td style="font-size:0.8rem;white-space:nowrap;">${dataStr}</td>
+      <td style="white-space:nowrap;">
+        ${c.telefone ? '<button class="btn btn-ghost btn-sm" onclick="window.open(\'https://wa.me/' + c.telefone.replace(/[^0-9]/g, '') + '\',\'_blank\')" title="WhatsApp">WA</button>' : ''}
+        <button class="btn btn-danger btn-sm" onclick="deleteContacto(${c.id})" title="Apagar">✕</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function deleteContacto(id) {
+  if (!confirm('Apagar este contacto da base de dados?')) return;
+  setContactos(getContactos().filter(c => c.id !== id));
+  renderContactos();
+  toast('Contacto removido', 'success');
+}
+
+function exportContactosCSV() {
+  const contactos = getContactos();
+  if (!contactos.length) { toast('Sem contactos para exportar', 'error'); return; }
+  const header = 'Nome,Empresa,Telefone,Email,Serviços,Total Mensagens,Primeiro Contacto';
+  const rows = contactos.map(c => [
+    '"' + (c.nome || '').replace(/"/g, '""') + '"',
+    '"' + (c.empresa || '').replace(/"/g, '""') + '"',
+    '"' + (c.telefone || '') + '"',
+    '"' + (c.email || '') + '"',
+    '"' + (c.servicos || []).join('; ') + '"',
+    c.totalMensagens || 1,
+    '"' + (c.primeiroContacto || '') + '"'
+  ].join(','));
+  const csv = header + '\n' + rows.join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'contactos-factoryideas-' + new Date().toISOString().slice(0,10) + '.csv';
+  link.click();
+  toast('CSV exportado!', 'success');
 }
 </script>
 </body>

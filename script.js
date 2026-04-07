@@ -452,7 +452,7 @@ filterBtns.forEach(btn => {
   });
 });
 
-// ===== CONTACT FORM → WhatsApp =====
+// ===== CONTACT FORM =====
 const form = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
 
@@ -466,18 +466,50 @@ form.addEventListener('submit', (e) => {
   const servico = data.get('servico') || '';
   const mensagem = data.get('mensagem') || '';
 
-  const t = TRANSLATIONS[currentLang] || TRANSLATIONS['pt'];
-  const template = t['wa.msg'] || TRANSLATIONS['pt']['wa.msg'];
-  const texto = template
-    .replace('{nome}', nome)
-    .replace('{empresa}', empresa)
-    .replace('{telefone}', telefone)
-    .replace('{email}', email ? `*Email:* ${email}\n` : '')
-    .replace('{servico}', servico)
-    .replace('{mensagem}', mensagem);
-
-  const url = `https://wa.me/244927635946?text=${encodeURIComponent(texto)}`;
-  window.open(url, '_blank');
+  // Save message to localStorage for admin panel
+  try {
+    const mensagens = JSON.parse(localStorage.getItem('fi_mensagens')) || [];
+    mensagens.push({
+      id: Date.now(),
+      nome: nome,
+      empresa: empresa,
+      telefone: telefone,
+      email: email,
+      servico: servico,
+      mensagem: mensagem,
+      data: new Date().toISOString(),
+      lida: false
+    });
+    localStorage.setItem('fi_mensagens', JSON.stringify(mensagens));
+    // Save contact to client database (deduplication)
+    const contactos = JSON.parse(localStorage.getItem('fi_contactos')) || [];
+    const emailKey = email.trim().toLowerCase();
+    const telKey = telefone.trim().replace(/[^0-9]/g, '');
+    let existing = null;
+    if (emailKey) existing = contactos.find(c => (c.email || '').trim().toLowerCase() === emailKey);
+    if (!existing && telKey) existing = contactos.find(c => (c.telefone || '').trim().replace(/[^0-9]/g, '') === telKey);
+    if (existing) {
+      if (nome) existing.nome = nome;
+      if (empresa) existing.empresa = empresa;
+      if (telefone) existing.telefone = telefone;
+      if (email) existing.email = email;
+      existing.totalMensagens = (existing.totalMensagens || 1) + 1;
+      existing.ultimoContacto = new Date().toISOString();
+      if (servico && existing.servicos && !existing.servicos.includes(servico)) existing.servicos.push(servico);
+    } else {
+      contactos.push({
+        id: Date.now() + 1,
+        nome: nome, empresa: empresa, telefone: telefone, email: email,
+        servicos: servico ? [servico] : [],
+        totalMensagens: 1,
+        primeiroContacto: new Date().toISOString(),
+        ultimoContacto: new Date().toISOString()
+      });
+    }
+    localStorage.setItem('fi_contactos', JSON.stringify(contactos));
+  } catch (err) {
+    console.warn('Erro ao guardar mensagem localmente:', err);
+  }
 
   formSuccess.style.display = 'block';
   form.reset();
