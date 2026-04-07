@@ -1,3 +1,14 @@
+// ===== ANALYTICS TRACKING =====
+(function() {
+  try {
+    const data = new URLSearchParams();
+    data.append('page', location.pathname + location.hash);
+    data.append('referrer', document.referrer || '');
+    data.append('lang', localStorage.getItem('fi_lang') || navigator.language?.substring(0,2) || 'pt');
+    fetch('/api/analytics.php', { method: 'POST', body: data }).catch(function(){});
+  } catch(e) {}
+})();
+
 // ===== TRANSLATIONS =====
 const TRANSLATIONS = {
   pt: {

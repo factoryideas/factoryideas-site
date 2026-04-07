@@ -2,6 +2,8 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /data/
+Disallow: /api/
 
 # Sitemap
 Sitemap: https://www.factoryideas.ao/sitemap.xml

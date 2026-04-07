@@ -334,6 +334,9 @@
       <button class="nav-item" onclick="showPage('contactos', this)">
         <span class="nav-icon">☷</span> Base de Dados
       </button>
+      <button class="nav-item" onclick="showPage('analytics', this)">
+        <span class="nav-icon">◫</span> Analytics
+      </button>
       <div class="nav-section-label">Conteúdo</div>
       <button class="nav-item" onclick="showPage('portfolio', this)">
         <span class="nav-icon">◈</span> Portfólio
@@ -652,6 +655,69 @@
           <table>
             <thead><tr><th>Nome</th><th>Empresa</th><th>Telefone</th><th>Email</th><th>Serviço</th><th>Mensagens</th><th>Primeiro Contacto</th><th>Ações</th></tr></thead>
             <tbody id="contactos-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="page-analytics" class="page">
+      <div class="page-header">
+        <div><h1>Analytics</h1><p>Estatísticas de visitas ao site</p></div>
+        <button class="btn btn-primary" onclick="loadAnalytics()">Atualizar</button>
+      </div>
+      <div class="stats-row" id="analytics-summary" style="grid-template-columns:repeat(4,1fr);">
+        <div class="stat-card">
+          <div class="stat-label">Hoje — Visitas</div>
+          <div class="stat-value" id="a-today-total">—</div>
+          <div class="stat-sub" id="a-today-unique">— visitantes únicos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Ontem — Visitas</div>
+          <div class="stat-value" id="a-yesterday-total">—</div>
+          <div class="stat-sub" id="a-yesterday-unique">— visitantes únicos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Últimos 7 Dias</div>
+          <div class="stat-value" id="a-week-total">—</div>
+          <div class="stat-sub" id="a-week-unique">— visitantes únicos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Últimos 30 Dias</div>
+          <div class="stat-value" id="a-month-total">—</div>
+          <div class="stat-sub" id="a-month-unique">— visitantes únicos</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h2>Visitas Diárias (30 dias)</h2></div>
+        <div class="panel-body">
+          <div id="analytics-chart" style="display:flex;align-items:flex-end;gap:4px;height:200px;padding-top:20px;position:relative;"></div>
+          <div style="display:flex;gap:20px;margin-top:12px;font-size:0.78rem;color:var(--gray);">
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--yellow);border-radius:2px;margin-right:4px;"></span>Total de visitas</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--blue);border-radius:2px;margin-right:4px;"></span>Visitantes únicos</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
+        <div class="panel">
+          <div class="panel-header"><h2>Dispositivos</h2></div>
+          <div class="panel-body" id="analytics-devices"><p style="color:var(--gray);font-size:0.85rem;">A carregar...</p></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h2>Idiomas</h2></div>
+          <div class="panel-body" id="analytics-langs"><p style="color:var(--gray);font-size:0.85rem;">A carregar...</p></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h2>Origens</h2></div>
+          <div class="panel-body" id="analytics-refs"><p style="color:var(--gray);font-size:0.85rem;">A carregar...</p></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:24px;">
+        <div class="panel-header"><h2>Últimas Visitas</h2></div>
+        <div class="panel-body" style="padding:0;">
+          <table>
+            <thead><tr><th>Data</th><th>IP</th><th>Página</th><th>Dispositivo</th><th>Idioma</th></tr></thead>
+            <tbody id="analytics-recent"></tbody>
           </table>
         </div>
       </div>
@@ -989,6 +1055,7 @@ function renderPage(name) {
   if (name === 'media') renderMedia();
   if (name === 'mensagens') renderMensagens();
   if (name === 'contactos') renderContactos();
+  if (name === 'analytics') loadAnalytics();
   updateStats();
 }
 
@@ -1556,6 +1623,72 @@ function deleteContacto(id) {
   setContactos(getContactos().filter(c => c.id !== id));
   renderContactos();
   toast('Contacto removido', 'success');
+}
+
+// ===== ANALYTICS =====
+function loadAnalytics() {
+  const baseUrl = window.location.origin || 'https://www.factoryideas.ao';
+  fetch(baseUrl + '/api/analytics.php?token=FI2026stats')
+    .then(r => r.json())
+    .then(data => {
+      const s = data.summary;
+      document.getElementById('a-today-total').textContent = s.today_total;
+      document.getElementById('a-today-unique').textContent = s.today_unique + ' visitantes únicos';
+      document.getElementById('a-yesterday-total').textContent = s.yesterday_total;
+      document.getElementById('a-yesterday-unique').textContent = s.yesterday_unique + ' visitantes únicos';
+      document.getElementById('a-week-total').textContent = s.week_total;
+      document.getElementById('a-week-unique').textContent = s.week_unique + ' visitantes únicos';
+      document.getElementById('a-month-total').textContent = s.month_total;
+      document.getElementById('a-month-unique').textContent = s.month_unique + ' visitantes únicos';
+
+      // Chart
+      const chart = document.getElementById('analytics-chart');
+      const maxVal = Math.max(...data.daily.map(d => d.total), 1);
+      chart.innerHTML = data.daily.map(d => {
+        const hTotal = Math.max((d.total / maxVal) * 180, 2);
+        const hUnique = Math.max((d.unique / maxVal) * 180, d.unique > 0 ? 2 : 0);
+        return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;" title="' + d.label + ': ' + d.total + ' visitas, ' + d.unique + ' únicos">' +
+          '<div style="width:100%;display:flex;gap:1px;align-items:flex-end;justify-content:center;height:180px;">' +
+          '<div style="width:45%;height:' + hTotal + 'px;background:var(--yellow);border-radius:2px 2px 0 0;"></div>' +
+          '<div style="width:45%;height:' + hUnique + 'px;background:var(--blue);border-radius:2px 2px 0 0;"></div>' +
+          '</div>' +
+          '<span style="font-size:0.6rem;color:var(--gray);transform:rotate(-45deg);white-space:nowrap;">' + d.label + '</span>' +
+          '</div>';
+      }).join('');
+
+      // Devices
+      const devEl = document.getElementById('analytics-devices');
+      const devEntries = Object.entries(data.devices || {});
+      devEl.innerHTML = devEntries.length ? devEntries.map(([k, v]) => '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span style="font-size:0.85rem;">' + k + '</span><strong style="font-size:0.85rem;">' + v + '</strong></div>').join('') : '<p style="color:var(--gray);font-size:0.85rem;">Sem dados</p>';
+
+      // Languages
+      const langEl = document.getElementById('analytics-langs');
+      const langMap = { pt:'Português', en:'English', fr:'Français', zh:'中文', ar:'العربية' };
+      const langEntries = Object.entries(data.languages || {});
+      langEl.innerHTML = langEntries.length ? langEntries.map(([k, v]) => '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span style="font-size:0.85rem;">' + (langMap[k] || k) + '</span><strong style="font-size:0.85rem;">' + v + '</strong></div>').join('') : '<p style="color:var(--gray);font-size:0.85rem;">Sem dados</p>';
+
+      // Referrers
+      const refEl = document.getElementById('analytics-refs');
+      const refEntries = Object.entries(data.referrers || {});
+      refEl.innerHTML = refEntries.length ? refEntries.map(([k, v]) => {
+        let label = k;
+        try { label = new URL(k).hostname; } catch(e) {}
+        return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span style="font-size:0.85rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + k + '">' + label + '</span><strong style="font-size:0.85rem;">' + v + '</strong></div>';
+      }).join('') : '<p style="color:var(--gray);font-size:0.85rem;">Sem referências externas</p>';
+
+      // Recent visits
+      const tbody = document.getElementById('analytics-recent');
+      const recent = data.recent || [];
+      tbody.innerHTML = recent.length ? recent.map(v => {
+        const d = new Date(v.date);
+        const ds = d.toLocaleDateString('pt-PT', { day:'2-digit', month:'2-digit' }) + ' ' + d.toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
+        return '<tr><td style="font-size:0.8rem;white-space:nowrap;">' + ds + '</td><td style="font-size:0.8rem;">' + (v.ip_short || '—') + '</td><td>' + (v.page || '/') + '</td><td>' + (v.device || '—') + '</td><td>' + (v.lang || '—') + '</td></tr>';
+      }).join('') : '<tr><td colspan="5"><div class="empty-state"><p>Sem visitas registadas.</p></div></td></tr>';
+    })
+    .catch(function() {
+      document.getElementById('a-today-total').textContent = '—';
+      document.getElementById('analytics-chart').innerHTML = '<p style="color:var(--gray);font-size:0.85rem;text-align:center;width:100%;padding:40px;">Não foi possível carregar os dados. Verifique se o site está online.</p>';
+    });
 }
 
 function exportContactosCSV() {
