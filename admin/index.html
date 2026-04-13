@@ -913,17 +913,6 @@ function doLogin() {
 document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pass').focus(); });
 
-// Auto-login from session
-(function() {
-  try {
-    const saved = JSON.parse(localStorage.getItem('fi_admin_user'));
-    if (saved) {
-      const match = USERS.find(x => x.email.toLowerCase() === saved.email.toLowerCase());
-      if (match) enterApp(match);
-    }
-  } catch(e) {}
-})();
-
 function doLogout() {
   localStorage.removeItem('fi_admin_user');
   document.getElementById('login-screen').style.display = 'flex';
@@ -1729,6 +1718,17 @@ function exportContactosCSV() {
   link.click();
   toast('CSV exportado!', 'success');
 }
+
+// Auto-login from session (must be after all functions are defined)
+(function() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('fi_admin_user'));
+    if (saved) {
+      const match = USERS.find(x => x.email.toLowerCase() === saved.email.toLowerCase());
+      if (match) enterApp(match);
+    }
+  } catch(e) {}
+})();
 </script>
 </body>
 </html>
