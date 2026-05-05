@@ -404,6 +404,22 @@ img { max-width: 100%; display: block; }
   color: var(--yellow);
   font-size: 0.8rem;
 }
+.service-card-link {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 0;
+  color: var(--yellow);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.service-card-link:hover {
+  border-bottom-color: var(--yellow);
+  transform: translateX(2px);
+}
+.service-card.featured .service-card-link { color: var(--yellow); }
 
 /* ===== PORTFOLIO ===== */
 .portfolio-filter {
