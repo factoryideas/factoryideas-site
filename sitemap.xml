@@ -6,7 +6,7 @@
   <!-- Página Principal — PT -->
   <url>
     <loc>https://www.factoryideas.ao/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="pt" href="https://www.factoryideas.ao/"/>
@@ -27,15 +27,15 @@
     </image:image>
     <image:image>
       <image:loc>https://www.factoryideas.ao/images/recepcao.jpg</image:loc>
-      <image:title>Recepção Factory Ideas — Showroom Alvalade Luanda</image:title>
-      <image:caption>Showroom e recepção da Factory Ideas em Alvalade, Luanda, Angola</image:caption>
+      <image:title>Recepção Factory Ideas — Showroom Luanda</image:title>
+      <image:caption>Showroom e recepção da Factory Ideas em Luanda, Angola</image:caption>
     </image:image>
   </url>
 
   <!-- Páginas de Serviços (alta prioridade) -->
   <url>
     <loc>https://www.factoryideas.ao/stands-feiras/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -46,7 +46,7 @@
 
   <url>
     <loc>https://www.factoryideas.ao/impressao-grande-formato/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -57,7 +57,7 @@
 
   <url>
     <loc>https://www.factoryideas.ao/brindes-corporativos/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -69,14 +69,14 @@
   <!-- Blog -->
   <url>
     <loc>https://www.factoryideas.ao/blog/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.factoryideas.ao/blog/guia-stand-filda-2026/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -87,7 +87,7 @@
 
   <url>
     <loc>https://www.factoryideas.ao/blog/quanto-custa-stand-feira-angola/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -99,7 +99,7 @@
   <!-- Versão EN -->
   <url>
     <loc>https://www.factoryideas.ao/?lang=en</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="pt" href="https://www.factoryideas.ao/"/>
@@ -110,7 +110,7 @@
   <!-- Versão FR -->
   <url>
     <loc>https://www.factoryideas.ao/?lang=fr</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="pt" href="https://www.factoryideas.ao/"/>
@@ -121,7 +121,7 @@
   <!-- Versão ZH -->
   <url>
     <loc>https://www.factoryideas.ao/?lang=zh</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="pt" href="https://www.factoryideas.ao/"/>
@@ -132,7 +132,7 @@
   <!-- Versão AR -->
   <url>
     <loc>https://www.factoryideas.ao/?lang=ar</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="pt" href="https://www.factoryideas.ao/"/>
