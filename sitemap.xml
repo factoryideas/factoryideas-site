@@ -50,7 +50,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://www.factoryideas.ao/images/lona-tis.png</image:loc>
+      <image:loc>https://www.factoryideas.ao/images/lona-tis.jpg</image:loc>
       <image:title>Impressão grande formato em Luanda</image:title>
     </image:image>
   </url>
@@ -93,6 +93,28 @@
     <image:image>
       <image:loc>https://www.factoryideas.ao/images/stand-sika-summit.jpg</image:loc>
       <image:title>Quanto custa um stand para feira em Angola</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.factoryideas.ao/blog/outdoor-lona-vinil-publicidade-exterior-angola/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.factoryideas.ao/images/outdoor-nopea.jpg</image:loc>
+      <image:title>Outdoor, lona ou vinil — publicidade exterior em Angola</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.factoryideas.ao/blog/brindes-corporativos-que-funcionam-angola/</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.factoryideas.ao/images/brinde-set.jpg</image:loc>
+      <image:title>Brindes corporativos que funcionam em Angola</image:title>
     </image:image>
   </url>
 

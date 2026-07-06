@@ -561,7 +561,7 @@
     var msg='Ola Factory Ideas! Gostaria de solicitar um orcamento.\n\n*Nome:* '+n+'\n*Empresa:* '+c+'\n*Telefone:* '+p+
     '\n*Produto:* '+prod+'\n*Cor:* '+currentColor+'\n'+(q?'*Quantidade:* '+q+'\n':'')+(notes?'*Obs:* '+notes+'\n':'')+
     '\n_Mockup 3D criado na plataforma Factory Ideas._';
-    window.open('https://wa.me/244922698044?text='+encodeURIComponent(msg),'_blank');closeQuoteModal();
+    window.open('https://wa.me/244923012946?text='+encodeURIComponent(msg),'_blank');closeQuoteModal();
   }
 
   window.setMockupLang=function(lang){
