@@ -1,0 +1,55 @@
+name: Publicar artigo do blog
+
+on:
+  schedule:
+    # Segundas e Quartas às 06:00 UTC (07:00 em Luanda)
+    - cron: "0 6 * * 1,3"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: publicar-artigo
+  cancel-in-progress: false
+
+jobs:
+  gerar-artigo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Gerar artigo
+        id: gen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node automacao/gerar-artigo.mjs
+
+      - name: Abrir Pull Request para aprovação
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # Branch fixa: se o PR de Segunda ainda não foi aprovado na Quarta,
+          # o mesmo PR é actualizado em vez de criar um duplicado.
+          branch: artigo-automatico
+          delete-branch: true
+          commit-message: "Novo artigo do blog: ${{ steps.gen.outputs.slug }}"
+          title: "📝 Novo artigo: ${{ steps.gen.outputs.titulo }}"
+          body: |
+            Artigo gerado automaticamente e pronto para revisão.
+
+            - **Slug:** `${{ steps.gen.outputs.slug }}`
+            - **Ficheiros:** artigo novo + cartão no índice do blog + sitemap + backlog
+
+            **Para publicar:** rever os ficheiros alterados e fazer **Merge** deste PR.
+            O merge dispara o auto-deploy do Hostinger e o artigo fica no ar em ~1 minuto.
+
+            **Para rejeitar:** fechar o PR sem merge (o tema volta a ficar disponível se
+            repuser a entrada em `automacao/topicos.json`).

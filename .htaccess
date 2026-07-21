@@ -53,3 +53,7 @@ Options -Indexes
   Order Allow,Deny
   Deny from all
 </FilesMatch>
+
+# ══ BLOCK DOT-DIRECTORIES (.git, .github, dotfiles) ══════════
+# Mantém /.well-known/ acessível (validação SSL)
+RedirectMatch 404 "(^|/)\.(?!well-known)"
