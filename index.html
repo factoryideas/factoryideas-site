@@ -308,6 +308,15 @@
         <li><a href="#sobre" data-i18n="nav.sobre">Sobre</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="#contacto" class="btn-nav" data-i18n="nav.orcamento">Pedir Orçamento</a></li>
+        <li class="nav-lang">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="pt" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+            <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中</button>
+            <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">ع</button>
+          </div>
+        </li>
       </ul>
       <div class="lang-switcher" id="langSwitcher">
         <button class="lang-btn active" data-lang="pt" onclick="setLang('pt')">PT</button>
@@ -316,7 +325,7 @@
         <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中</button>
         <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">ع</button>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -324,6 +333,13 @@
 
   <!-- HERO -->
   <section class="hero" id="inicio">
+    <div class="hero-slideshow" aria-hidden="true">
+      <div class="hero-slide" style="background-image:url('images/stand-cognito-1.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/stand-sika-summit.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/recepcao.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/brinde-set.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/stand-sika-kiosk.jpg')"></div>
+    </div>
     <div class="hero-bg"></div>
     <div class="container hero-content">
       <span class="badge" data-i18n="hero.badge">Luanda, Angola · B2B</span>
@@ -691,34 +707,34 @@
         <form class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="cont.fn">Nome *</label>
-              <input type="text" name="nome" data-i18n-ph="cont.fph.n" placeholder="O seu nome" required />
+              <label for="f-nome" data-i18n="cont.fn">Nome *</label>
+              <input id="f-nome" type="text" name="nome" data-i18n-ph="cont.fph.n" placeholder="O seu nome" required />
             </div>
             <div class="form-group">
-              <label data-i18n="cont.fe">Empresa *</label>
-              <input type="text" name="empresa" data-i18n-ph="cont.fph.e" placeholder="Nome da empresa" required />
+              <label for="f-empresa" data-i18n="cont.fe">Empresa *</label>
+              <input id="f-empresa" type="text" name="empresa" data-i18n-ph="cont.fph.e" placeholder="Nome da empresa" required />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="cont.ft">Telefone *</label>
-              <input type="tel" name="telefone" data-i18n-ph="cont.fph.t" placeholder="+244 9XX XXX XXX" required />
+              <label for="f-tel" data-i18n="cont.ft">Telefone *</label>
+              <input id="f-tel" type="tel" name="telefone" data-i18n-ph="cont.fph.t" placeholder="+244 9XX XXX XXX" required />
             </div>
             <div class="form-group">
-              <label data-i18n="cont.fem">Email</label>
-              <input type="email" name="email" data-i18n-ph="cont.fph.em" placeholder="email@empresa.com" />
+              <label for="f-email" data-i18n="cont.fem">Email</label>
+              <input id="f-email" type="email" name="email" data-i18n-ph="cont.fph.em" placeholder="email@empresa.com" />
             </div>
           </div>
           <div class="form-group">
-            <label data-i18n="cont.fs">Serviço pretendido *</label>
+            <label for="servicoSelect" data-i18n="cont.fs">Serviço pretendido *</label>
             <select name="servico" id="servicoSelect" required></select>
           </div>
           <div class="form-group">
-            <label data-i18n="cont.fm">Mensagem *</label>
-            <textarea name="mensagem" rows="4" data-i18n-ph="cont.fph.m" placeholder="Descreva o seu projeto ou pedido de orçamento..." required></textarea>
+            <label for="f-msg" data-i18n="cont.fm">Mensagem *</label>
+            <textarea id="f-msg" name="mensagem" rows="4" data-i18n-ph="cont.fph.m" placeholder="Descreva o seu projecto ou pedido de orçamento..." required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-full" data-i18n="cont.submit">Enviar Pedido de Orçamento</button>
-          <div class="form-success" id="formSuccess" data-i18n="cont.success">
+          <div class="form-success" id="formSuccess" role="status" data-i18n="cont.success">
             ✅ Mensagem enviada com sucesso! Entraremos em contacto em breve.
           </div>
         </form>

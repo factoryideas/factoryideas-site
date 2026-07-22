@@ -436,11 +436,21 @@ window.addEventListener('scroll', () => {
 // ===== HAMBURGER MENU =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
+function fecharMenu() {
+  navLinks.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
 hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
+  const aberto = navLinks.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', aberto);
+  document.body.style.overflow = aberto ? 'hidden' : '';
 });
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => navLinks.classList.remove('open'));
+  link.addEventListener('click', fecharMenu);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navLinks.classList.contains('open')) fecharMenu();
 });
 
 // ===== PORTFOLIO FILTER =====
