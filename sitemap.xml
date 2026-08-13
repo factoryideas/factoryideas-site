@@ -66,6 +66,23 @@
     </image:image>
   </url>
 
+  <url>
+    <loc>https://www.factoryideas.ao/carpintaria/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.factoryideas.ao/images/carpintaria/carteira-cadeira-individual.jpg</image:loc>
+      <image:title>Carteiras escolares e mobiliário escolar em Angola</image:title>
+      <image:caption>Carteiras escolares, cadeiras e mobiliário produzido pela carpintaria da Factory Ideas em Luanda</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.factoryideas.ao/images/carpintaria/secretaria-executiva.png</image:loc>
+      <image:title>Secretárias e mobiliário de escritório em Angola</image:title>
+      <image:caption>Secretárias, mesas de reunião e armários por medida para escritórios em Angola</image:caption>
+    </image:image>
+  </url>
+
   <!-- Blog -->
   <url>
     <loc>https://www.factoryideas.ao/blog/</loc>
