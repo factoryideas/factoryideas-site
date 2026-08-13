@@ -463,6 +463,55 @@
   line-height: 1.4;
 }
 
+/* SPEC TABLE (fichas técnicas: acabamentos, papéis, encadernação) */
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 18px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+table.spec {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 520px;
+}
+table.spec thead th {
+  background: #0A0A0A;
+  color: #fff;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 12px 16px;
+  white-space: nowrap;
+}
+table.spec tbody td {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  color: #333;
+  line-height: 1.55;
+  vertical-align: top;
+}
+table.spec tbody tr:nth-child(even) { background: #fafafa; }
+table.spec tbody td:first-child {
+  font-weight: 700;
+  color: #0A0A0A;
+  white-space: nowrap;
+}
+table.spec tbody td:first-child::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #F5C800;
+  border-radius: 2px;
+  margin-right: 9px;
+  vertical-align: middle;
+}
+
 /* MOBILE */
 @media (max-width: 700px) {
   .page-hero { padding: 60px 0 70px; }
@@ -471,4 +520,6 @@
   .process-list li { padding: 14px 16px 14px 56px; font-size: 0.92rem; }
   .breadcrumb-nav { margin-top: 72px; }
   .product-gallery { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  table.spec { font-size: 0.86rem; }
+  table.spec thead th, table.spec tbody td { padding: 10px 12px; }
 }
