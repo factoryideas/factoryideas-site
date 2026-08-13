@@ -83,6 +83,23 @@
     </image:image>
   </url>
 
+  <url>
+    <loc>https://www.factoryideas.ao/impressao-editorial/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.factoryideas.ao/images/impressao-editorial/catalogos-livros.jpg</image:loc>
+      <image:title>Impressão de livros, revistas e catálogos em Angola</image:title>
+      <image:caption>Livros, revistas, catálogos e brochuras impressos pela Factory Ideas em Luanda</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.factoryideas.ao/images/impressao-editorial/revistas.jpg</image:loc>
+      <image:title>Impressão de revistas e periódicos em Angola</image:title>
+      <image:caption>Revistas agrafadas a cavalo em papel couché com acabamentos profissionais</image:caption>
+    </image:image>
+  </url>
+
   <!-- Blog -->
   <url>
     <loc>https://www.factoryideas.ao/blog/</loc>
