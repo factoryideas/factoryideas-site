@@ -512,6 +512,43 @@ table.spec tbody td:first-child::before {
   vertical-align: middle;
 }
 
+/* DOWNLOAD CARD (catálogos em PDF) */
+.download-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #0A0A0A;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.download-card .dl-icon {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(245,200,0,0.15);
+  color: #F5C800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.download-card .dl-text { flex: 1 1 240px; }
+.download-card .dl-text strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.download-card .dl-text span {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+.download-card .btn { flex: 0 0 auto; }
+
 /* MOBILE */
 @media (max-width: 700px) {
   .page-hero { padding: 60px 0 70px; }
@@ -522,4 +559,6 @@ table.spec tbody td:first-child::before {
   .product-gallery { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
   table.spec { font-size: 0.86rem; }
   table.spec thead th, table.spec tbody td { padding: 10px 12px; }
+  .download-card { padding: 20px; gap: 14px; }
+  .download-card .btn { width: 100%; }
 }
