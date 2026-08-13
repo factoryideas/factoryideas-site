@@ -39,6 +39,7 @@ RewriteRule ^(.*)$ https://www.factoryideas.ao/$1 [L,R=301]
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType application/pdf "access plus 1 week"
   ExpiresByType application/json "access plus 0 seconds"
 </IfModule>
 
